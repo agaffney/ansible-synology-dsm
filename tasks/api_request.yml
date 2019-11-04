@@ -1,0 +1,17 @@
+---
+- name: '{{ api_task_name | default("API request") }}'
+  vars:
+    url_path: '{{ synology_dsm_base_url }}/{{ synology_dsm_base_path }}/{{ cgi_name | default(synology_dsm_cgi_name) }}'
+    url_params: '?api={{ api_name }}&version={{ api_version | default("1") }}&method={{ api_method }}'
+    url_extra_params: '{% if api_params is defined %}&{{ api_params | urlencode }}{% endif %}'
+    headers: |
+      {% if synology_dsm_login_cookie | default('') != '' %}
+      Cookie: '{{ synology_dsm_login_cookie }}'
+      {% else %}
+      {}
+      {% endif %}
+  uri:
+    url: '{{ url_path }}{{ url_params }}{{ url_extra_params }}'
+    headers: '{{ headers | from_yaml }}'
+    method: '{{ request_method | default("GET") }}'
+  register: synology_dsm_api_response

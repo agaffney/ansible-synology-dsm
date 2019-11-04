@@ -1,0 +1,14 @@
+---
+- include_tasks: api_request.yml
+  vars:
+    api_task_name: Login
+    cgi_name: auth.cgi
+    api_name: SYNO.API.Auth
+    api_version: 3
+    api_method: login
+    api_params:
+      account: '{{ synology_dsm_username }}'
+      passwd: '{{ synology_dsm_password }}'
+
+- set_fact:
+    synology_dsm_login_cookie: '{{ synology_dsm_api_response.set_cookie }}'

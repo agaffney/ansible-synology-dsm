@@ -1,0 +1,17 @@
+---
+- include_tasks: login.yml
+
+#- include_tasks: api_request.yml
+#  vars:
+#    api_task_name: Query API info
+#    cgi_name: query.cgi
+#    api_name: SYNO.API.Info
+#    api_method: query
+#    api_params:
+#      query: all
+
+- include_tasks: api_request.yml
+  vars:
+    api_task_name: Query system status
+    api_name: SYNO.Core.System.Status
+    api_method: get

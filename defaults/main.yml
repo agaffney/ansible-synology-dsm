@@ -1,0 +1,8 @@
+---
+synology_dsm_host: '{{ inventory_hostname }}'
+synology_dsm_base_url: http://{{ synology_dsm_host }}:5000
+synology_dsm_base_path: webapi
+synology_dsm_cgi_name: entry.cgi
+
+synology_dsm_username: admin
+synology_dsm_password: changeme
