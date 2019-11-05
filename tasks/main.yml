@@ -15,3 +15,5 @@
     api_task_name: Query system status
     api_name: SYNO.Core.System.Status
     api_method: get
+
+- include_tasks: terminal.yml

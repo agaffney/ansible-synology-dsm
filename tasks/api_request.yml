@@ -4,14 +4,28 @@
     url_path: '{{ synology_dsm_base_url }}/{{ synology_dsm_base_path }}/{{ cgi_name | default(synology_dsm_cgi_name) }}'
     url_params: '?api={{ api_name }}&version={{ api_version | default("1") }}&method={{ api_method }}'
     url_extra_params: '{% if api_params is defined %}&{{ api_params | urlencode }}{% endif %}'
+    tmp_request_method: '{{ request_method | default("GET") }}'
     headers: |
       {% if synology_dsm_login_cookie | default('') != '' %}
       Cookie: '{{ synology_dsm_login_cookie }}'
       {% else %}
       {}
       {% endif %}
+    body: |
+      {% if request_json is defined -%}
+      {{ request_json }}
+      {%- else -%}
+      api: '{{ api_name }}'
+      version: {{ api_version | default("1") }}
+      method: '{{ api_method }}'
+      {%   for key, value in (api_params | default({})).items() %}
+      {{ key }}: {{ value | to_json }}
+      {%   endfor %}
+      {%- endif -%}
   uri:
-    url: '{{ url_path }}{{ url_params }}{{ url_extra_params }}'
+    url: '{{ url_path }}{% if tmp_request_method != "POST" %}{{ url_params }}{{ url_extra_params }}{% endif %}'
     headers: '{{ headers | from_yaml }}'
-    method: '{{ request_method | default("GET") }}'
+    method: '{{ tmp_request_method }}'
+    body: '{{ body | from_yaml if tmp_request_method == "POST" else omit }}'
+    body_format: '{{ ("json" if request_json is defined else "form-urlencoded") if tmp_request_method == "POST" else omit }}'
   register: synology_dsm_api_response
