@@ -10,3 +10,7 @@ synology_dsm_password: changeme
 synology_dsm_enable_ssh: true
 synology_dsm_enable_telnet: false
 synology_dsm_ssh_port: 22
+
+synology_dsm_enable_user_home_service: true
+synology_dsm_user_home_location: /volume1
+synology_dsm_user_home_enable_recycle_bin: false

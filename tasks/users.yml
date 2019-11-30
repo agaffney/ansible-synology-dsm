@@ -1,0 +1,10 @@
+---
+- name: Enable/Disable User Home Service
+  synology_dsm_api_request:
+    api_name: SYNO.Core.User.Home
+    api_method: set
+    request_method: POST
+    api_params:
+      enable: '{{ synology_dsm_enable_user_home_service | to_json }}'
+      location: '{{ synology_dsm_user_home_location }}'
+      enable_recycle_bin: '{{ synology_dsm_user_home_enable_recycle_bin | to_json }}'

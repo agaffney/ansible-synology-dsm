@@ -1,21 +1,18 @@
 ---
-- include_tasks: api_request.yml
-  vars:
-    api_task_name: Enable/Disable SSH/Telnet
+- name: Enable/Disable SSH/Telnet
+  synology_dsm_api_request:
     api_name: SYNO.Entry.Request
     api_method: request
     request_method: POST
-    api_params_tmp: |
-      stop_on_error: false
+    api_params:
+      stop_on_error: 'false'
       mode: sequential
       compound: >-
         [{"api":"SYNO.Core.Terminal","method":"set","version":"3","enable_telnet":{{ synology_dsm_enable_telnet | to_json }},"enable_ssh":{{ synology_dsm_enable_ssh | to_json }},"ssh_port":{{ synology_dsm_ssh_port }}}]
-    api_params: '{{ api_params_tmp | from_yaml }}'
 
 # XXX: this may not be needed at all
-- include_tasks: api_request.yml
-  vars:
-    api_task_name: Open SSH port
+- name: Open SSH port
+  synology_dsm_api_request:
     api_name: SYNO.DSM.PortEnable
     api_method: is_port_block
     request_method: POST
