@@ -1,0 +1,8 @@
+galaxy_info:
+  role_name: synology_dsm
+  author: Andrew Gaffney
+  description: Ansible role for configuring a Synology NAS running DSM
+  license: MIT
+  min_ansible_version: 2.6
+  galaxy_tags:
+    - synology
