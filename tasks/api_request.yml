@@ -29,3 +29,6 @@
     body: '{{ body | from_yaml if tmp_request_method == "POST" else omit }}'
     body_format: '{{ ("json" if request_json is defined else "form-urlencoded") if tmp_request_method == "POST" else omit }}'
   register: synology_dsm_api_response
+  failed_when: >
+    synology_dsm_api_response is failed or
+    (synology_dsm_api_response.json.success is defined and synology_dsm_api_response.json.success == false)

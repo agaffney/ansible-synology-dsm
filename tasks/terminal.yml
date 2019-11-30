@@ -12,17 +12,16 @@
         [{"api":"SYNO.Core.Terminal","method":"set","version":"3","enable_telnet":{{ synology_dsm_enable_telnet | to_json }},"enable_ssh":{{ synology_dsm_enable_ssh | to_json }},"ssh_port":{{ synology_dsm_ssh_port }}}]
     api_params: '{{ api_params_tmp | from_yaml }}'
 
-# This returns an error for some unknown reason, but it may not even be needed
-#- include_tasks: api_request.yml
-#  vars:
-#    api_task_name: Open SSH port
-#    api_name: SYNO.DSM.PortEnable
-#    api_method: is_port_block
-#    request_method: POST
-#    api_params_tmp: |
-#      name: >-
-#        ["SYNO.SDS.AdminCenter.Terminal.SSH"]
-#      isPkg: false
-#      isDirectID: false
-#    api_params: '{{ api_params_tmp | from_yaml }}'
-#  when: synology_dsm_enable_ssh | bool
+# XXX: this may not be needed at all
+- include_tasks: api_request.yml
+  vars:
+    api_task_name: Open SSH port
+    api_name: SYNO.DSM.PortEnable
+    api_method: is_port_block
+    request_method: POST
+    api_params:
+      name: >-
+        ["SYNO.SDS.AdminCenter.Terminal.SSH"]
+      isPkg: 'false'
+      isDirectID: 'false'
+  when: synology_dsm_enable_ssh | bool
