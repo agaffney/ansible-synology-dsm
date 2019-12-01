@@ -17,12 +17,9 @@
   when: item.name not in (synology_dsm_package_sources_list.json.data['items'] | map(attribute='name'))
   loop: '{{ synology_dsm_package_sources }}'
 
-- name: List installed packages
-  synology_dsm_api_request:
-    api_name: SYNO.Core.Package
-    api_method: list
-    api_version: 2
-  register: synology_dsm_package_list
-
-- include_tasks: install_package.yml
-  loop: '{{ synology_dsm_packages }}'
+#- name: List installed packages
+#  synology_dsm_api_request:
+#    api_name: SYNO.Core.Package
+#    api_method: list
+#    api_version: 2
+#  register: synology_dsm_package_list
