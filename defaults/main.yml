@@ -7,19 +7,28 @@ synology_dsm_cgi_name: entry.cgi
 synology_dsm_username: admin
 synology_dsm_password: changeme
 
-synology_dsm_enable_ssh: true
-synology_dsm_enable_telnet: false
+synology_dsm_ssh_enable: true
 synology_dsm_ssh_port: 22
+synology_dsm_telnet_enable: false
 
-synology_dsm_enable_user_home_service: true
+synology_dsm_user_home_service_enable: true
 synology_dsm_user_home_location: /volume1
 synology_dsm_user_home_enable_recycle_bin: false
 
 synology_dsm_package_sources: []
 synology_dsm_packages: []
 
-synology_dsm_enable_nfs: false
-synology_dsm_enable_afp: true
-synology_dsm_enable_smb: true
-synology_dsm_enable_ftp: false
-synology_dsm_enable_rsync: false
+synology_dsm_nfs_enable: false
+synology_dsm_nfs_enable_v4: false
+synology_dsm_nfs_enable_v4_1: false
+
+synology_dsm_afp_enable: true
+synology_dsm_afp_enable_transfer_log: false
+
+synology_dsm_smb_enable: true
+synology_dsm_smb_workgroup: WORKGROUP
+synology_dsm_smb_disable_shadow_copy: false
+synology_dsm_smb_enable_transfer_log: false
+
+synology_dsm_ftp_enable: false
+synology_dsm_rsync_enable: false

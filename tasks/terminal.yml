@@ -8,7 +8,7 @@
       stop_on_error: 'false'
       mode: sequential
       compound: >-
-        [{"api":"SYNO.Core.Terminal","method":"set","version":"3","enable_telnet":{{ synology_dsm_enable_telnet | to_json }},"enable_ssh":{{ synology_dsm_enable_ssh | to_json }},"ssh_port":{{ synology_dsm_ssh_port }}}]
+        [{"api":"SYNO.Core.Terminal","method":"set","version":"3","enable_telnet":{{ synology_dsm_telnet_enable | to_json }},"enable_ssh":{{ synology_dsm_ssh_enable | to_json }},"ssh_port":{{ synology_dsm_ssh_port }}}]
 
 # XXX: this may not be needed at all
 - name: Open SSH port
@@ -21,4 +21,4 @@
         ["SYNO.SDS.AdminCenter.Terminal.SSH"]
       isPkg: 'false'
       isDirectID: 'false'
-  when: synology_dsm_enable_ssh | bool
+  when: synology_dsm_ssh_enable | bool
