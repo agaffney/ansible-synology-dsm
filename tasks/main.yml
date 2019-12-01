@@ -23,3 +23,5 @@
     - include_tasks: terminal.yml
 
     - include_tasks: users.yml
+
+    - include_tasks: packages.yml

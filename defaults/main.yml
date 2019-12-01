@@ -14,3 +14,12 @@ synology_dsm_ssh_port: 22
 synology_dsm_enable_user_home_service: true
 synology_dsm_user_home_location: /volume1
 synology_dsm_user_home_enable_recycle_bin: false
+
+synology_dsm_package_sources: []
+synology_dsm_packages: []
+
+synology_dsm_enable_nfs: false
+synology_dsm_enable_afp: true
+synology_dsm_enable_smb: true
+synology_dsm_enable_ftp: false
+synology_dsm_enable_rsync: false
