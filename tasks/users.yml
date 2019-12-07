@@ -8,3 +8,10 @@
       enable: '{{ synology_dsm_user_home_service_enable | to_json }}'
       location: '{{ synology_dsm_user_home_location }}'
       enable_recycle_bin: '{{ synology_dsm_user_home_enable_recycle_bin | to_json }}'
+
+#- name: List users
+#  synology_dsm_api_request:
+#    api_name: SYNO.Core.User
+#    api_method: list
+#    request_method: POST
+#  register: synology_dsm_user_list

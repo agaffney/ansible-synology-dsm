@@ -16,6 +16,8 @@
       list: '{{ { "name": item.name, "feed": item.feed } | to_json | to_json }}'
   when: item.name not in (synology_dsm_package_sources_list.json.data['items'] | map(attribute='name'))
   loop: '{{ synology_dsm_package_sources }}'
+  loop_control:
+    label: '{{ item.name }}'
 
 #- name: List installed packages
 #  synology_dsm_api_request:
