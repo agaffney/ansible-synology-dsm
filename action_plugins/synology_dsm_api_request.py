@@ -110,7 +110,10 @@ class ActionModule(ActionBase):
         return uri_params
 
     def is_request_failing(result):
-        return result.get('failed', False) or (result.get('json', {}).get('success', None) == False)
+        return (result.get('failed', False) or
+                result.get('json', {}).get('success', None) == False or
+                result.get('json', {}).get('data', {}).get('has_fail', None) == True
+               )
 
     def run(self, tmp=None, task_vars=None):
         self._supports_async = True
