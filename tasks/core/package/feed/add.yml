@@ -1,0 +1,11 @@
+---
+- set_fact:
+    globals: {}
+
+- include_tasks: list.yml
+  vars:
+    return_name: synology_dsm_package_list
+
+- include_tasks: _add.yml
+  vars:
+    synology_dsm_package_list: globals.synology_dsm_package_list

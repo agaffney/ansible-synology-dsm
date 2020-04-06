@@ -1,0 +1,14 @@
+---
+- set_fact:
+    return_name: default_return_name
+
+- name: List package sources
+  synology_dsm_api_request:
+    api_name: SYNO.Core.Package.Feed
+    api_method: list
+    request_method: POST
+  register: synology_dsm_package_sources_list
+
+- name: update_facts
+  set_fact:
+    globals: "{{ globals|combine({ return_name: reg }) }}"

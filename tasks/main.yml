@@ -5,25 +5,35 @@
       base_url: '{{ synology_dsm_base_url }}'
       login_cookie: '{{ synology_dsm_login_cookie | default(omit) }}'
   block:
-    - include_tasks: login.yml
+    - include_tasks: api/auth/login.yml
 
-    #- name: Query API info
-    #  synology_dsm_api_request:
-    #    cgi_name: query.cgi
-    #    api_name: SYNO.API.Info
-    #    api_method: query
-    #    api_params:
-    #      query: all
+    # Figure out the API
+    # - include_tasks: api/info.yml
 
-    - name: Query system status
-      synology_dsm_api_request:
-        api_name: SYNO.Core.System.Status
-        api_method: get
+    # Get system status info
+    - include_tasks: system/status.yml
 
-    - include_tasks: terminal.yml
+    # Control the terminal access
+    # - include_tasks: terminal.yml
 
-    - include_tasks: users.yml
+    # List all users
+    # - include_tasks: core/user/list.yml
 
-    - include_tasks: package_sources.yml
+    # Create a user
+    # - include_tasks: core/user/create.yml
 
-    - include_tasks: file_services.yml
+    # Delete users
+    # - include_tasks: core/user/delete.yml
+
+    # Set mail configurations
+    # - include_tasks: notif/mail/conf/set.yml
+
+    # Add a package source
+    # - include_tasks: core/package/feed/add.yml
+
+    # Set specific file services & protocols
+    # - include_tasks: core/fileserv/afp/set.yml
+    # - include_tasks: core/fileserv/nfs/set.yml
+    # - include_tasks: core/fileserv/smb/set.yml
+
+    - include_tasks: api/auth/logout.yml

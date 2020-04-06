@@ -1,0 +1,4 @@
+---
+synology_dsm_users_to_delete:
+  - "to_be_deleted_user1"
+  - "to_be_deleted_user2"

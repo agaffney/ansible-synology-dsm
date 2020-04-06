@@ -1,0 +1,9 @@
+---
+# We are not logging out from a specific session, so that we can utilize any API
+# That may not be the best security practice
+- name: Logout
+  synology_dsm_api_request:
+    cgi_name: auth.cgi
+    api_name: SYNO.API.Auth
+    api_version: 3
+    api_method: logout

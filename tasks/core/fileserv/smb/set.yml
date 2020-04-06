@@ -1,0 +1,19 @@
+---
+- name: Enable/Disable SMB service
+  synology_dsm_api_request:
+    api_name: SYNO.Entry.Request
+    api_method: request
+    request_method: POST
+    api_params:
+      stop_on_error: 'false'
+      mode: sequential
+      compound: >-
+        [{
+        "api":"SYNO.Core.FileServ.SMB",
+        "method":"set",
+        "version":"3",
+        "enable_samba":            {{ synology_dsm_smb_enable | to_json }},
+        "workgroup":               "{{ synology_dsm_smb_workgroup }}",
+        "disable_shadow_copy":     {{ synology_dsm_smb_disable_shadow_copy | to_json }},
+        "smb_transfer_log_enable": {{ synology_dsm_smb_enable_transfer_log | to_json }}
+        }]

@@ -1,0 +1,36 @@
+---
+- name: Setup email SMTP
+  synology_dsm_api_request:
+    api_name: SYNO.Entry.Request
+    api_method: request
+    request_method: POST
+    api_params:
+      stop_on_error: 'false'
+      mode: sequential
+      compound: >-
+        [
+          {
+            "api":            "SYNO.Core.Notification.Mail.Conf",
+            "method":         "set",
+            "version":        1,
+            "enable_mail":    {{ synology_dsm_notif_mail_enable | to_json }},
+            "mail": [
+              "{{ synology_dsm_notif_mail_receipent }}"
+            ],
+            "subject_prefix": "{{ synology_dsm_notif_mail_prefix }}",
+            "smtp_info":      {
+              "server":         "{{ synology_dsm_notif_mail_server }}",
+              "port":           {{ synology_dsm_notif_mail_port }},
+              "ssl":            {{ synology_dsm_notif_mail_ssl | to_json }},
+              "oauth":          {{ synology_dsm_notif_mail_oauth | to_json }}
+            },
+            "smtp_auth":      {
+              "enable":         {{ synology_dsm_notif_mail_auth_enable | to_json }},
+              "user":           "{{ synology_dsm_notif_mail_auth_user }}",
+              "pass":           "{{ synology_dsm_notif_mail_auth_pass | b64decode }}"
+            },
+            "send_welcome_mail": {{ synology_dsm_notif_mail_welcome_mail | to_json }},
+            "sender_name":       "{{ synology_dsm_notif_mail_sender_name }}",
+            "sender_mail":       "{{ synology_dsm_notif_mail_sender_mail }}"
+          }
+        ]

@@ -1,0 +1,27 @@
+---
+- name: Create a user
+  synology_dsm_api_request:
+    api_name: SYNO.Entry.Request
+    api_method: request
+    request_method: POST
+    api_params:
+      stop_on_error: 'false'
+      mode: sequential
+      compound: >-
+        [
+          {
+            "api":              "SYNO.Core.User",
+            "method":           "create",
+            "version":          "1",
+            "name":             "{{ synology_dsm_new_user_name }}",
+            "description":      "{{ synology_dsm_new_user_description }}",
+            "email":            "{{ synology_dsm_new_user_email }}",
+            "cannot_chg_passwd": {{ synology_dsm_new_user_cnt_chg_pw | to_json }},
+            "expired":          "{{ synology_dsm_new_user_expired }}",
+            "notify_by_email":   {{ synology_dsm_new_user_notify_by_email | to_json }},
+            "send_password":     {{ synology_dsm_new_user_send_pw | to_json }},
+            "password":         "{{ synology_dsm_new_user_pass | b64decode }}"
+          }
+        ]
+
+# error 3107: user already exists

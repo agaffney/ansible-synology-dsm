@@ -1,0 +1,12 @@
+---
+- name: Open SSH port
+  synology_dsm_api_request:
+    api_name: SYNO.DSM.PortEnable
+    api_method: is_port_block
+    request_method: POST
+    api_params:
+      name: >-
+        ["SYNO.SDS.AdminCenter.Terminal.SSH"]
+      isPkg: 'false'
+      isDirectID: 'false'
+  when: synology_dsm_ssh_enable | bool

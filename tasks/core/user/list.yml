@@ -1,0 +1,23 @@
+---
+# Use a default to avoid the task being broken if called without
+# a preset return_name
+# TODO: consider using a conditional instead
+- set_fact:
+    return_name: default_return_name
+
+- name: List users
+  synology_dsm_api_request:
+    api_name: SYNO.Core.User
+    api_method: list
+    request_method: POST
+#    additional: ["email", "description", "expired"]
+#    type: "local"
+#    offset: 0
+#    limit: -1
+  register: reg
+# Use the additional keyword to specify the SELECT clause
+# NOTE: The commented is only observed but not tested
+
+- name: update_facts
+  set_fact:
+    globals: "{{ globals|combine({ return_name: reg }) }}"

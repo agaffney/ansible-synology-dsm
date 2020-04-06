@@ -1,0 +1,19 @@
+---
+- name: Set NFS service
+  synology_dsm_api_request:
+    api_name: SYNO.Entry.Request
+    api_method: request
+    request_method: POST
+    api_params:
+      stop_on_error: 'false'
+      mode: sequential
+      compound: >-
+        [{
+        "api":"SYNO.Core.FileServ.NFS",
+        "method":"set",
+        "version":"2",
+        "enable_nfs":      {{ synology_dsm_nfs_enable | to_json }},
+        "enable_nfs_v4":   {{ synology_dsm_nfs_enable_v4 | to_json }},
+        "enable_nfs_v4_1": {{ synology_dsm_nfs_enable_v4_1 | to_json }}
+        }]
+

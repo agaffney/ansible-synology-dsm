@@ -6,8 +6,8 @@
     api_version: 3
     api_method: login
     api_params:
-      account: '{{ synology_dsm_username }}'
-      passwd: '{{ synology_dsm_password }}'
+      account: '{{ synology_dsm_login_user }}'
+      passwd: '{{ synology_dsm_login_pass | b64decode }}'
   register: synology_dsm_login_response
 
 - set_fact:

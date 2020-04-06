@@ -1,0 +1,18 @@
+---
+- name: Set bandwidths
+  synology_dsm_api_request:
+    api_name: SYNO.Entry.Request
+    api_method: request
+    request_method: POST
+    api_params:
+      stop_on_error: 'false'
+      mode: sequential
+      compound: >-
+        [
+          {
+            "api": "SYNO.Core.BandwidthControl",
+            "method": "set",
+            "version": "1",
+            {{ bandwidths | expand_bandwidths(bandwidths_defaults) }}
+          }
+        ]
