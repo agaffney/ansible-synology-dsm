@@ -1,0 +1,9 @@
+---
+synology_dsm_new_user_name:             automated_user1
+synology_dsm_new_user_description:      Automatically created test user
+synology_dsm_new_user_email:            ""
+synology_dsm_new_user_cnt_chg_pw:       false
+synology_dsm_new_user_expired:          normal
+synology_dsm_new_user_notify_by_email:  false
+synology_dsm_new_user_send_pw:          false
+synology_dsm_new_user_pass:             dXNlX2Ffc3Ryb25nX3Bhc3N3b3JkX2xpa2VfdGhpcw==

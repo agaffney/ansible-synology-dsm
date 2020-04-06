@@ -1,0 +1,9 @@
+---
+- name: Query API info
+  synology_dsm_api_request:
+    cgi_name: query.cgi
+    api_name: SYNO.API.Info
+    api_method: query
+    api_params:
+      query: all
+

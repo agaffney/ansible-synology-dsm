@@ -1,0 +1,7 @@
+---
+synology_dsm_login_user: admin_devops_user
+synology_dsm_login_pass: dXNlX2Ffc3Ryb25nX3Bhc3N3b3JkX2xpa2VfdGhpcw==
+
+# NOTE: for passwords, use a base64 hash, in example:
+# ```echo -n use_a_strong_password_like_this | base64```
+

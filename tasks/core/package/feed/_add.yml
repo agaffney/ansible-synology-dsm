@@ -1,11 +1,4 @@
 ---
-- name: List package sources
-  synology_dsm_api_request:
-    api_name: SYNO.Core.Package.Feed
-    api_method: list
-    request_method: POST
-  register: synology_dsm_package_sources_list
-
 - name: Package sources
   synology_dsm_api_request:
     api_name: SYNO.Core.Package.Feed
@@ -18,10 +11,3 @@
   loop: '{{ synology_dsm_package_sources }}'
   loop_control:
     label: '{{ item.name }}'
-
-#- name: List installed packages
-#  synology_dsm_api_request:
-#    api_name: SYNO.Core.Package
-#    api_method: list
-#    api_version: 2
-#  register: synology_dsm_package_list

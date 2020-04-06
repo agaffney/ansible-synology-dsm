@@ -1,0 +1,18 @@
+---
+- name: Delete app_priv of {{ user_name }} for {{ app_name }}
+  synology_dsm_api_request:
+    api_name: SYNO.Entry.Request
+    api_method: request
+    request_method: POST
+    api_params:
+      stop_on_error: 'false'
+      mode: sequential
+      compound: >-
+        [
+          {
+            "api": "SYNO.Core.AppPriv.Rule",
+            "method": "delete",
+            "version": "1",
+            {{ rules | expand_rules(rules_defaults) }}
+          }
+        ]

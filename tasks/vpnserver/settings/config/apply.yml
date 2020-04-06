@@ -1,0 +1,40 @@
+---
+- name: Apply VPN Settings
+  synology_dsm_api_request:
+    api_name: SYNO.Entry.Request
+    api_method: request
+    request_method: POST
+    api_params:
+      stop_on_error: 'false'
+      mode: sequential
+      compound: >-
+        [
+          {
+            "api": "SYNO.VPNServer.Settings.Config",
+            "method": "apply",
+            "version": "1",
+            "serv_type": "\"l2tp\"",
+            "serv_enable": "true",
+            "serv_ip": "\"10.120.0.0\"",
+            "serv_range": "5",
+            "auth_type": "2",
+            "auth_conn": "3",
+            "mtu": "\"1400\"",
+            "dns_check": "false",
+            "dns": "\"8.8.8.8\"",
+            "preshared_key": "\"STRONG_PASSWORD\"",
+            "preshared_key_confirm": "\"STRONG_PASSWORD\"",
+            "sha2_truncbug": "false",
+            "kernel_mode": "true"
+          }
+        ]
+
+# documentation
+# l2tp is one of the three available vpn services
+#
+# serv_ip:       a value in x.x.x.0,
+# serv_range:    max connection number, a value in [5,10,15,20,25,30],
+# auth_type:     0 for PAP, 2 for MS_CHAP v2,
+# auth_conn:     max number of connections,
+# dns_check:     use manual dns,
+# sha2_truncbug: sha256 compatible mode,

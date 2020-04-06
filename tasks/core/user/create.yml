@@ -1,0 +1,96 @@
+---
+- set_fact:
+    globals: {}
+
+- include_tasks: list.yml
+  vars:
+    return_name: synology_dsm_user_list
+
+# - debug:
+#     var: synology_dsm_user_list
+
+- assert:
+    that:
+      - "{\"name\": \"{{ synology_dsm_new_user_name }}\"} not in globals.synology_dsm_user_list.json.data.users"
+    fail_msg: "User {{ synology_dsm_new_user_name }} already exists, please assign synology_dsm_new_user a different name"
+    success_msg: "User {{ synology_dsm_new_user_name }} is ready to be created"
+
+- include_tasks: _create.yml
+
+- include_tasks: ../share/permission/set.yml
+  vars:
+    user_name: "{{ synology_dsm_new_user_name }}"
+    permissions_defaults:
+      writable: false
+      readonly: false
+      deny:     false
+      custom:   false
+    permissions:
+      - share_dir: "shared_dir1"
+      - share_dir: "shared_dir2"
+      - share_dir: "shared_dir3"
+
+- include_tasks: ../app_priv/rules/delete.yml
+  vars:
+    rules_defaults:
+      type: user
+      entity: "{{ synology_dsm_new_user_name }}"
+    rules:
+      - app: "SYNO.FTP"
+      - app: "SYNO.Desktop"
+      - app: "SYNO.SDS.App.FileStation3.Instance"
+      - app: "SYNO.Photo.AppInstance"
+      - app: "SYNO.SDS.Drive.Application"
+      - app: "SYNO.TextEditor.Application"
+      - app: "SYNO.Finder.Application"
+      - app: "SYNO.SDS.Virtualization.Application"
+      - app: "SYNO.SDS.VideoStation.AppInstance"
+      - app: "SYNO.Rsync"
+
+- include_tasks: ../quota/set.yml
+  vars:
+    user_name: "{{ synology_dsm_new_user_name }}"
+    quotas_defaults:
+      quota: 0
+    quotas:
+      - share_dir: "shared_dir1"
+      - share_dir: "shared_dir2"
+      - share_dir: "shared_dir3"
+
+- include_tasks: ../bandwidth_control/set.yml
+  vars:
+    bandwidths_defaults:
+      name:             "{{ synology_dsm_new_user_name }}"
+      upload_result:    ""
+      download_result:  ""
+      upload_limit_1:   0
+      download_limit_1: 0
+      upload_limit_2:   0
+      download_limit_2: 0
+      policy:           "notexist"
+      owner_type:       "local_user"
+      schedule_plan:    "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+    bandwidths:
+      - protocol:    "FileStation"
+        protocol_ui: "FileStation"
+      - protocol:    "FTP"
+        protocol_ui: "FTP"
+      - protocol:    "NetworkBackup"
+        protocol_ui: "NetworkBackup"
+      - protocol:    "CloudStation"
+        protocol_ui: "Synology Drive Server"
+
+- include_tasks: ../group/member/add.yml
+  vars:
+    user_name: "{{ synology_dsm_new_user_name }}"
+    group_name: "{{ item }}"
+  with_list:
+    - administrators
+
+- include_tasks: ../group/member/remove.yml
+  vars:
+    user_name: "{{ synology_dsm_new_user_name }}"
+    group_name: "{{ item }}"
+  with_list:
+    - group1
+    - group2

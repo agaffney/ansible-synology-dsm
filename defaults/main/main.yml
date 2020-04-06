@@ -11,9 +11,6 @@ synology_dsm_base_url: http://{{synology_dsm_host}}:{{synology_dsm_port}}
 synology_dsm_base_path: webapi
 synology_dsm_cgi_name: entry.cgi
 
-synology_dsm_username: admin
-synology_dsm_password: changeme
-
 synology_dsm_ssh_enable: true
 synology_dsm_ssh_port: 22
 synology_dsm_telnet_enable: false

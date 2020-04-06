@@ -1,0 +1,20 @@
+---
+- name: List S2S Server Pairs
+  synology_dsm_api_request:
+    api_name: SYNO.Entry.Request
+    api_method: request
+    request_method: POST
+    api_params:
+      stop_on_error: 'false'
+      mode: sequential
+      compound: >-
+        [
+          {
+            "api": "SYNO.S2S.Server.Pair",
+            "method": "list",
+            "version": "1",
+            "additional": [
+              "sync_shares"
+            ]
+          }
+        ]

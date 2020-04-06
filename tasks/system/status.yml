@@ -1,0 +1,4 @@
+- name: Query system status
+  synology_dsm_api_request:
+    api_name: SYNO.Core.System.Status
+    api_method: get

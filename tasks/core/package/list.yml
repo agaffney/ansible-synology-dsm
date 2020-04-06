@@ -1,0 +1,14 @@
+---
+- set_fact:
+    return_name: default_return_name
+
+- name: List installed packages
+ synology_dsm_api_request:
+   api_name: SYNO.Core.Package
+   api_method: list
+   api_version: 2
+ register: reg
+
+- name: update_facts
+  set_fact:
+    globals: "{{ globals|combine({ return_name: reg }) }}"

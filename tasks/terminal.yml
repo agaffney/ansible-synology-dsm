@@ -1,24 +1,5 @@
 ---
-- name: Enable/Disable SSH/Telnet
-  synology_dsm_api_request:
-    api_name: SYNO.Entry.Request
-    api_method: request
-    request_method: POST
-    api_params:
-      stop_on_error: 'false'
-      mode: sequential
-      compound: >-
-        [{"api":"SYNO.Core.Terminal","method":"set","version":"3","enable_telnet":{{ synology_dsm_telnet_enable | to_json }},"enable_ssh":{{ synology_dsm_ssh_enable | to_json }},"ssh_port":{{ synology_dsm_ssh_port }}}]
+- include_tasks: core/terminal/set.yml
 
 # XXX: this may not be needed at all
-- name: Open SSH port
-  synology_dsm_api_request:
-    api_name: SYNO.DSM.PortEnable
-    api_method: is_port_block
-    request_method: POST
-    api_params:
-      name: >-
-        ["SYNO.SDS.AdminCenter.Terminal.SSH"]
-      isPkg: 'false'
-      isDirectID: 'false'
-  when: synology_dsm_ssh_enable | bool
+- include_tasks: dsm/port_enable/ssh.yml

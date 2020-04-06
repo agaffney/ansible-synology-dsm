@@ -1,0 +1,34 @@
+---
+# use globals to capture return registers from nested tasks
+- set_fact:
+    globals: {}
+
+- include_tasks: list.yml
+  vars:
+    return_name: synology_dsm_user_list
+
+# - debug:
+#     var: globals.synology_dsm_user_list
+
+- assert:
+    that:
+      - "{\"name\": \"{{ item }}\"} in globals.synology_dsm_user_list.json.data.users"
+    fail_msg: "User doesn't exist, please be careful of the desired user to be deleted"
+    success_msg: "User is ready to be deleted"
+  with_list:
+    - toBeDeletedUser1
+    - toBeDeletedUser2
+    - toBeDeletedUser3
+    - toBeDeletedUser4
+
+# Even though this request is mandatory from the UI,
+# it is not needed for the webapi interface
+#  - include_tasks: password_confirm/auth.yml
+
+- include_tasks: _delete.yml
+  vars:
+    del_users:
+      - name: toBeDeletedUser1
+      - name: toBeDeletedUser2
+      - name: toBeDeletedUser3
+      - name: toBeDeletedUser4

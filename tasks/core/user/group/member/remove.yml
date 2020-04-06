@@ -1,0 +1,19 @@
+---
+- name: Remove {{ user_name }} from {{ group_name }}
+  synology_dsm_api_request:
+    api_name: SYNO.Entry.Request
+    api_method: request
+    request_method: POST
+    api_params:
+      stop_on_error: 'false'
+      mode: sequential
+      compound: >-
+        [
+          {
+            "api": "SYNO.Core.Group.Member",
+            "method": "remove",
+            "version": 1,
+            "group": "{{ group_name }}",
+            "member": "{{ user_name }}"
+          }
+        ]

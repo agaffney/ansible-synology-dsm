@@ -1,0 +1,30 @@
+---
+- name: Edit a user
+  synology_dsm_api_request:
+    api_name: SYNO.Entry.Request
+    api_method: request
+    request_method: POST
+    api_params:
+      stop_on_error: 'false'
+      mode: sequential
+      compound: >-
+        [
+          {
+            "api":              "SYNO.Core.User",
+            "method":           "set",
+            "version":          "1",
+            "name":             "{{ user_name_old }}",
+            "new_name":         "{{ user_name }}",
+            "description":      "{{ user_description }}",
+            "email":            "{{ user_email }}",
+            "expired":          "{{ user_expiration }}",
+            "cannot_chg_passwd": {{ user_cnt_chg_pw | to_json }},
+            "password":         "{{ user_pass | b64decode }}"
+          }
+        ]
+
+# expired: value is either "now", "normal" or a date
+# - "normal" means never expires
+# - "now" means to expire immediately
+# - a date is a string similar to "2020/4/27"
+# password: is an optional param

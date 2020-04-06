@@ -1,0 +1,19 @@
+---
+- name: Set AFP service
+  synology_dsm_api_request:
+    api_name: SYNO.Entry.Request
+    api_method: request
+    request_method: POST
+    api_params:
+      stop_on_error: 'false'
+      mode: sequential
+      compound: >-
+        [
+          {
+            "api":"SYNO.Core.FileServ.AFP",
+            "method":"set",
+            "version":"1",
+            "enable_afp":              {{ synology_dsm_afp_enable | to_json }},
+            "afp_transfer_log_enable": {{ synology_dsm_afp_enable_transfer_log | to_json }}
+          }
+        ]

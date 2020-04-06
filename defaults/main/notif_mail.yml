@@ -1,0 +1,13 @@
+synology_dsm_notif_mail_enable:       true
+synology_dsm_notif_mail_receipent:    receiver@example.com
+synology_dsm_notif_mail_prefix:       "[SYNO_EMAIL_PREFIX]"
+synology_dsm_notif_mail_server:       smtp.gmail.com
+synology_dsm_notif_mail_port:         587
+synology_dsm_notif_mail_ssl:          true
+synology_dsm_notif_mail_oauth:        false
+synology_dsm_notif_mail_welcome_mail: false
+synology_dsm_notif_mail_auth_enable:  true
+synology_dsm_notif_mail_auth_user:    sender@gmailInThisCase.com
+synology_dsm_notif_mail_auth_pass:    YV9zdHJvbmdfcGFzc3dvcmRfbGlrZV90aGlz
+synology_dsm_notif_mail_sender_name:  Sender Name
+synology_dsm_notif_mail_sender_mail:  sender@gmailInThisCase.com

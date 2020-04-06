@@ -1,0 +1,18 @@
+---
+- name: Get Password Policy
+  synology_dsm_api_request:
+    api_name: SYNO.Entry.Request
+    api_method: request
+    request_method: POST
+    api_params:
+      stop_on_error: 'false'
+      mode: sequential
+      compound: >-
+        [
+          {
+            "api": "SYNO.Core.User.PasswordPolicy",
+            "method": "get",
+            "version": "1"
+          }
+        ]
+
