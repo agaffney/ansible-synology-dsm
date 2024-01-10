@@ -40,7 +40,7 @@ class ActionModule(ActionBase):
         # Build task args
         task_args = self.PARAM_DEFAULTS.copy()
         task_args.update(self._task.args)
-        for arg in task_args.keys():
+        for arg in list(task_args.keys()):
             if task_args[arg] is None:
                 del task_args[arg]
 
